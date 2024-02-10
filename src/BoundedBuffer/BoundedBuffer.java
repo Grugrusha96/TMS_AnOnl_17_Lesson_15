@@ -33,7 +33,7 @@ class BoundedBuffer {
             lock.unlock();
         }
     }
-    public int consume() throws InterruptedException{
+    public void consume() throws InterruptedException{
         lock.lock();
         try {
             while (buffer.isEmpty()){
@@ -43,7 +43,6 @@ class BoundedBuffer {
             int data = buffer.poll();
             System.out.println("Потребитель :" + data);
             notFull.signalAll();
-            return data;
         }finally {
             lock.unlock();
         }
